@@ -111,7 +111,8 @@ export default function SignInForm() {
         <Image
           alt="Welcome"
           src={Pic1}
-          className="absolute inset-0 h-full w-full object-cover"
+         
+          className="absolute w-full h-full inset-0  object-cover"
         />
       </div>
     </div>
