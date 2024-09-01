@@ -44,7 +44,7 @@ export default function SignUpForm() {
 
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
-    const res = await axios.post('http://localhost:4000/api/user/signup', {
+    const res = await axios.post('https://taskify-backend-pi.vercel.app/api/user/signup', {
       username: values.username,
       password: values.password
 

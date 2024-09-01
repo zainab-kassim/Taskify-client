@@ -84,6 +84,7 @@ export default function Nav() {
               <div className="-my-6 divide-y divide-gray-500/10">
 
                 <div className="py-6">
+                 <UserIcon className="h-6 w-6 text-black inline" />{username}
                   <button onClick={Logout}
 
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-red-700 hover:bg-gray-50"

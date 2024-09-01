@@ -35,14 +35,16 @@ export default function SignInForm() {
   })
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
-    const res = await axios.post('http://localhost:4000/api/user/signin', {
+    const res = await axios.post('https://taskify-backend-pi.vercel.app/api/user/signin', {
       username: values.username,
       password: values.password
     });
     const { message, token, Username } = res.data
     localStorage.setItem('token', token)
     localStorage.setItem('username', Username)
-    router.push('/')
+    if(token){
+      router.push('/')
+    }
   }
 
   return (

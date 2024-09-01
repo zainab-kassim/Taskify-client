@@ -47,7 +47,7 @@ export default function CreateTaskForm() {
             const username = localStorage.getItem('username')
             const token = localStorage.getItem('token')
             const headers = createAuthHeaders(token)
-            const res = await axios.get(`http://localhost:4000/api/task/${username}/list`, { headers })
+            const res = await axios.get(`https://taskify-backend-pi.vercel.app/api/task/${username}/list`, { headers })
             setTasks(res.data.userTasks)
         } catch (error) {
             console.log(error)
@@ -70,7 +70,7 @@ export default function CreateTaskForm() {
 
         try {
             if (action === 'Add') {
-                const res = await axios.post('http://localhost:4000/api/task/create', {
+                const res = await axios.post('https://taskify-backend-pi.vercel.app/api/task/create', {
                     task: values.task
                 }, { headers });
 
@@ -80,7 +80,7 @@ export default function CreateTaskForm() {
                 })
             } else {
                 // Update the task if editing
-                const res = await axios.put(`http://localhost:4000/api/task/${data?._id}/update`, {
+                const res = await axios.put(`https://taskify-backend-pi.vercel.app/api/task/${data?._id}/update`, {
                     task: values.task
                 }, { headers });
 
@@ -101,7 +101,7 @@ export default function CreateTaskForm() {
         try {
             const token = localStorage.getItem('token');
             const headers = createAuthHeaders(token);
-            const res = await axios.delete(`http://localhost:4000/api/task/${id}/delete`, { headers })
+            const res = await axios.delete(`https://taskify-backend-pi.vercel.app/api/task/${id}/delete`, { headers })
             await GetTasks();
             toast({
                 description: res.data.message // Show the toast message
@@ -116,7 +116,7 @@ export default function CreateTaskForm() {
         try {
             const token = localStorage.getItem('token');
             const headers = createAuthHeaders(token);
-            const res = await axios.get(`http://localhost:4000/api/task/${id}`, { headers });
+            const res = await axios.get(`https://taskify-backend-pi.vercel.app/api/task/${id}`, { headers });
             setData(res.data.foundTask)
             toast({
                 description: res.data.message // Show the toast message
