@@ -17,6 +17,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import Pic1 from "../../public/SOMKENE (5).png"
 import Image from "next/image"
+import { useToast } from "@/hooks/use-toast"
 
 
 
@@ -32,6 +33,7 @@ const FormSchema = z.object({
 
 
 export default function SignUpForm() {
+  const { toast } = useToast()
   const router = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -54,6 +56,9 @@ export default function SignUpForm() {
     localStorage.setItem('token', token)
     localStorage.setItem('username', Username)
     router.push('/')
+    toast({
+      description: res.data.message // Show the toast message
+  })
 
 
   }

@@ -5,10 +5,10 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation';
 import { log } from 'console';
-
+import { useToast } from "@/hooks/use-toast"
 
 export default function Nav() {
-
+  const { toast } = useToast()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
   const [isLoggedin, setisLoggedin] = useState(false)
@@ -34,6 +34,10 @@ export default function Nav() {
     localStorage.removeItem('username')
     localStorage.removeItem('userId')
     router.push('/sign-in')
+    toast({
+      description: 'User logged out successfully'// Show the toast message
+  })
+    
     
  
   }

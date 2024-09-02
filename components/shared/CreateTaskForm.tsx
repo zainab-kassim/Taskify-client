@@ -13,12 +13,15 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
+
 
 const FormSchema = z.object({
     task: z.string()
 })
 
 export default function CreateTaskForm() {
+    const router=useRouter()
     const { toast } = useToast()
     interface DataType {
         _id: string
@@ -46,9 +49,13 @@ export default function CreateTaskForm() {
         try {
             const username = localStorage.getItem('username')
             const token = localStorage.getItem('token')
+            if(username&&token){
             const headers = createAuthHeaders(token)
             const res = await axios.get(`https://taskify-backend-pi.vercel.app/api/task/${username}/list`, { headers })
             setTasks(res.data.userTasks)
+            }else{
+             router.push('/sign-in')
+            }
         } catch (error) {
             console.log(error)
         }

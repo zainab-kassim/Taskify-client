@@ -13,6 +13,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import Pic1 from "../../public/SOMKENE (5).png"
 import Image from "next/image"
+import { useToast } from "@/hooks/use-toast"
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -24,6 +25,7 @@ const FormSchema = z.object({
 })
 
 export default function SignInForm() {
+  const { toast } = useToast()
   const router = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -39,11 +41,18 @@ export default function SignInForm() {
       username: values.username,
       password: values.password
     });
-    const { message, token, Username } = res.data
+    const {  token, Username } = res.data
     localStorage.setItem('token', token)
     localStorage.setItem('username', Username)
     if(token){
       router.push('/')
+      toast({
+        description: res.data.message // Show the toast message
+    })
+    }else{
+      toast({
+        description: 'Account doesnt exist' // Show the toast message
+    })
     }
   }
 
