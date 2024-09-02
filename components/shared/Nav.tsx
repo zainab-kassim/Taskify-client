@@ -64,9 +64,9 @@ export default function Nav() {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <div className="text-base flex    pr-3  font-semibold leading-6 text-gray-900">
-              <UserIcon className="h-6 w-6 text-black inline" />{username}</div>
+              <UserIcon className="h-5 w-5 text-black inline" />{username}</div>
             <button onClick={Logout} className="text-sm pr-2 font-semibold leading-6 text-red-700">
-              {isLoggedin ? 'Logout' : 'Sign-in'} <span aria-hidden="true">&rarr;</span>
+              {isLoggedin ? 'Logout' : 'Sign-in'} 
             </button>
           </div>
         </nav>

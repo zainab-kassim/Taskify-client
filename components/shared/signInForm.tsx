@@ -60,9 +60,9 @@ export default function SignInForm() {
     <div className="relative flex flex-col md:flex-row md:h-screen md:items-center md:justify-between">
       <div className="w-full px-4 py-48 sm:px-6 sm:my-auto md:w-1/2 md:px-8 md:py-24">
         <div className="mx-auto max-w-lg text-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">Sign in to Taskify!</h1>
           <p className="mt-4 text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error neque ipsa culpa autem, at itaque nostrum!
+           Your daily tasks, simplified.
           </p>
         </div>
         <Form {...form}>
