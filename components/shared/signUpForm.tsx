@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import Pic1 from "../../public/SOMKENE (5).png"
+import Pic1 from "../../public/SOMKENE (6).png"
 import Image from "next/image"
 import { useToast } from "@/hooks/use-toast"
 
