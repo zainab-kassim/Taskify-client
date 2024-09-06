@@ -1,5 +1,4 @@
 'use client'
-import { Button } from "@/components/ui/button"
 import {
     Form,
     FormField,
@@ -16,19 +15,16 @@ import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 
 
+
+
+
 const FormSchema = z.object({
     task: z.string()
 })
 
 export default function CreateTaskForm() {
-    const router=useRouter()
+    const router = useRouter()
     const { toast } = useToast()
-    interface DataType {
-        _id: string
-        author: string
-        task: string
-    }
-
     const [data, setData] = useState<DataType | null>(null)
     const [Tasks, setTasks] = useState<Task[]>([]);
     const [action, setAction] = useState('Add')
@@ -38,31 +34,53 @@ export default function CreateTaskForm() {
         resolver: zodResolver(FormSchema),
         defaultValues: { task: '' }
     })
+   
 
-    interface Task {
-        _id: string;
-        task: string;
-        author: string;
+    function isTokenValid() {
+        const token = localStorage.getItem('token');
+        if (!token) return false;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const expirationTime = payload.exp * 1000;
+            const currentTime = Date.now();
+            const validation = currentTime <= expirationTime
+            if (validation === false) {
+                console.log('timed out')
+                router.push('/sign-in')
+                toast({
+                    description: "Session timed out"
+                })
+            } else {
+                GetTasks()
+            }
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return false;
+        }
     }
+
 
     async function GetTasks() {
         try {
             const username = localStorage.getItem('username')
             const token = localStorage.getItem('token')
-            if(username&&token){
-            const headers = createAuthHeaders(token)
-            const res = await axios.get(`https://taskify-backend-pi.vercel.app/api/task/${username}/list`, { headers })
-            setTasks(res.data.userTasks)
-            }else{
-             router.push('/sign-in')
+            if (username && token) {
+                const headers = createAuthHeaders(token)
+                const res = await axios.get(`https://taskify-backend-pi.vercel.app/api/task/${username}/list`, { headers })
+                setTasks(res.data.userTasks)
+            } else {
+                router.push('/sign-in')
             }
         } catch (error) {
             console.log(error)
         }
     }
 
+
     useEffect(() => {
-        GetTasks()
+        isTokenValid()
+
     }, []);
 
     useEffect(() => {
@@ -142,25 +160,26 @@ export default function CreateTaskForm() {
 
     return (
         <div className="flex flex-col justify-center items-center mx-auto mt-52">
+
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit((values) => onSubmit(values))}
                     className="flex items-center space-x-2 py-3"
                 >
-                        <FormField
+                    <FormField
 
-                            control={form.control}
-                            name="task"
-                            render={({ field }) => (
-                                <Input
-                                    type="text"
-                                    {...field}
-                                    placeholder="Enter task"
-                                    required
-                                    className="w-72"
-                                />
-                            )}
-                                  
+                        control={form.control}
+                        name="task"
+                        render={({ field }) => (
+                            <Input
+                                type="text"
+                                {...field}
+                                placeholder="Enter task"
+                                required
+                                className="w-72"
+                            />
+                        )}
+
                     />
                     <button type="submit" className="w-auto inline bg-black px-3 py-2 text-white rounded-md">
                         {action === 'Add' ? 'Create' : 'Update Task'}
