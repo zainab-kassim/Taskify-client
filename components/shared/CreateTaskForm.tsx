@@ -92,6 +92,11 @@ export default function CreateTaskForm() {
     async function onSubmit(values: z.infer<typeof FormSchema>) {
         const token = localStorage.getItem('token')
         const headers = createAuthHeaders(token)
+        if(!token){
+            toast({
+                description:"Sign in to create tasks"
+            })
+        }
 
         try {
             if (action === 'Add') {
@@ -176,7 +181,7 @@ export default function CreateTaskForm() {
                                 {...field}
                                 placeholder="Enter task"
                                 required
-                                className="w-72"
+                                className="w-auto"
                             />
                         )}
 

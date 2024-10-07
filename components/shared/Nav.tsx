@@ -28,7 +28,7 @@ export default function Nav() {
 
   }, []);
 
-  function Logout() {
+  function handleLogout() {
 
     localStorage.removeItem('token')
     localStorage.removeItem('username')
@@ -36,10 +36,11 @@ export default function Nav() {
     router.push('/sign-in')
     toast({
       description: 'User logged out successfully'// Show the toast message
-  })
-    
-    
- 
+    })
+  }
+
+  function handleLogin() {
+    router.push('/sign-in')
   }
 
   return (
@@ -48,7 +49,7 @@ export default function Nav() {
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="/" className="-m-1.5 p-1.5">
-              <span className="font-semibold text-xl pl-5 leading-6 text-gray-900">Taskify</span>
+              <span className="font-semibold text-xl  leading-6 text-gray-900">Taskify</span>
 
             </a>
           </div>
@@ -65,9 +66,16 @@ export default function Nav() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <div className="text-base flex    pr-3  font-semibold leading-6 text-gray-900">
               <UserIcon className="h-5 w-5 text-black inline" />{username}</div>
-            <button onClick={Logout} className="text-sm pr-2 font-semibold leading-6 text-red-700">
-              {isLoggedin ? 'Logout' : 'Sign-in'} 
-            </button>
+            <div className="text-sm pr-2 font-semibold leading-6 text-red-700">
+              {isLoggedin ?
+                (<>
+                  <button onClick={handleLogout}>Logout</button>
+                </>) :
+                (<>
+                <button onClick={handleLogin}>Signin</button>
+                </>)
+              }
+            </div>
           </div>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -88,13 +96,20 @@ export default function Nav() {
               <div className="-my-6 divide-y divide-gray-500/10">
 
                 <div className="py-6">
-                 <UserIcon className="h-6 w-6 text-black inline" />{username}
-                  <button onClick={Logout}
+                  <UserIcon className="h-6 w-6 text-black inline" />{username}
+                  <div
 
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-red-700 hover:bg-gray-50"
                   >
-                    {isLoggedin ? 'Logout' : 'Sign-in'}
-                  </button>
+                    {isLoggedin ?
+                (<>
+                  <button onClick={handleLogout}>Logout</button>
+                </>) :
+                (<>
+                <button onClick={handleLogin}>Signin</button>
+                </>)
+              }
+                  </div>
                 </div>
               </div>
             </div>
