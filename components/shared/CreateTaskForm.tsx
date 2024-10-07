@@ -181,7 +181,7 @@ export default function CreateTaskForm() {
                                 {...field}
                                 placeholder="Enter task"
                                 required
-                                className="w-auto"
+                                className="max-w-auto"
                             />
                         )}
 
